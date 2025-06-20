@@ -97,7 +97,7 @@ export function CoopTable({ data }: CoopTableProps) {
         <select
           value={searchField}
           onChange={(e) => setSearchField(e.target.value as any)}
-          className="border rounded-md px-2 py-1 text-sm"
+          className="border rounded-md px-2 py-1 text-sm dark:bg-background dark:text-foreground"
         >
           <option value="" disabled>Selecione um tipo</option>
           <option value="name">Nome</option>
@@ -115,15 +115,15 @@ export function CoopTable({ data }: CoopTableProps) {
             setSearchTerm(e.target.value);
             setCurrentPage(1);
           }}
-          className="border rounded-md px-2 py-1 text-sm w-full sm:w-64"
+          className="focus-visible:ring-primary transition-all border rounded-md px-2 py-1 text-sm w-full sm:w-64"
         />
       </div>
 
       <Table>
         <TableHeader>
-          <TableRow className="bg-muted transition-colors">
+          <TableRow className="bg-muted transition-colors uppercase text-xs font-bold">
             <TableHead
-              className="cursor-pointer select-none text-sm  hover:text-foreground transition-colors "
+              className="cursor-pointer select-none hover:text-foreground transition-colors "
               onClick={() => handleSort("name")}
             >
               Nome <SortIndicator active={sortBy === "name"} order={sortOrder} />
@@ -158,7 +158,7 @@ export function CoopTable({ data }: CoopTableProps) {
             </TableRow>
           ) : (
             currentData.map((coop) => (
-              <TableRow key={coop.id} className="hover:bg-muted transition-colors">
+              <TableRow key={coop.id} className="transition-colors hover:bg-muted cursor-pointer">
                 <TableCell className="font-medium">{coop.name}</TableCell>
                 <TableCell>{formatCNPJ(coop.CNPJ)}</TableCell>
                 <TableCell>{coop.state}</TableCell>
@@ -178,7 +178,7 @@ export function CoopTable({ data }: CoopTableProps) {
             aria-label="Página anterior"
             variant="outline"
             size="sm"
-            className="rounded-lg"
+            className="rounded-lg transition-all duration-200"
             onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
             disabled={currentPage === 1}
           >
@@ -188,7 +188,7 @@ export function CoopTable({ data }: CoopTableProps) {
             aria-label="Próxima página"
             variant="outline"
             size="sm"
-            className="rounded-lg"
+            className="rounded-lg transition-all duration-200"
             onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
             disabled={currentPage === totalPages}
           >

@@ -20,6 +20,7 @@ export function ThemeToggle() {
       size="icon"
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       aria-label="Alternar tema"
+      className="transition-all duration-200"
     >
       {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
     </Button>
