@@ -77,12 +77,12 @@ export function CoopTable({ data }: CoopTableProps) {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 overflow-x-auto">
       <Table>
         <TableHeader>
-          <TableRow>
+          <TableRow className="bg-muted transition-colors">
             <TableHead
-              className="cursor-pointer"
+              className="cursor-pointer select-none text-sm  hover:text-foreground transition-colors "
               onClick={() => handleSort("name")}
             >
               Nome <SortIndicator active={sortBy === "name"} order={sortOrder} />
@@ -100,7 +100,7 @@ export function CoopTable({ data }: CoopTableProps) {
               Estado <SortIndicator active={sortBy === "state"} order={sortOrder} />
             </TableHead>
             <TableHead
-              className="cursor-pointer"
+              className="cursor-pointer "
               onClick={() => handleSort("coopSystem")}
             >
               Sistema Cooperativo{" "}
@@ -110,8 +110,8 @@ export function CoopTable({ data }: CoopTableProps) {
         </TableHeader>
         <TableBody>
           {currentData.map((coop) => (
-            <TableRow key={coop.id}>
-              <TableCell>{coop.name}</TableCell>
+            <TableRow key={coop.id} className="hover:bg-muted transition-colors">
+              <TableCell className="font-medium">{coop.name}</TableCell>
               <TableCell>{formatCNPJ(coop.CNPJ)}</TableCell>
               <TableCell>{coop.state}</TableCell>
               <TableCell>{coop.coopSystem.name}</TableCell>
@@ -126,14 +126,20 @@ export function CoopTable({ data }: CoopTableProps) {
         </span>
         <div className="space-x-2">
           <Button
+            aria-label="Página anterior"
             variant="outline"
+            size="sm"
+            className="rounded-lg"
             onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
             disabled={currentPage === 1}
           >
-            Anterior
+            Anterior 
           </Button>
           <Button
+            aria-label="Próxima página"
             variant="outline"
+            size="sm"
+            className="rounded-lg"
             onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
             disabled={currentPage === totalPages}
           >
