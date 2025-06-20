@@ -109,7 +109,6 @@ src/
 - 📄 Exportar lista (CSV ou PDF)
 - 🧪 Testes automatizados com React Testing Library
 - 🌐 I18n (internacionalização)
-- 🎨 Tema escuro / claro com switch
 
 ---
 
