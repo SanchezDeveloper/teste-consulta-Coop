@@ -75,10 +75,11 @@ Acesse `http://localhost:3000` no navegador.
 src/
 ├── app/
 │   └── page.tsx              # Página inicial com chamada do wrapper
+│   └── error.tsx              # Página para tratamento de erros
 ├── components/
-│   ├── tables/               # CoopTable + CoopTableWrapper
+│   ├── tables/               # CoopTable, CoopTableWrapper, CoopTableSkeleton
 │   ├── ui/                   # Componentes do shadcn/ui
-│   └── common/               # Loader, mensagens de erro etc.
+│   └── common/               # Loader, mensagens de erro, ThemeToggle.
 ├── lib/
 │   └── api.ts                # Função para consumir a API
 ├── types/
@@ -96,6 +97,7 @@ src/
 - `feat: implement coop table with pagination, sorting, loading and error states`
 - `feat: improve UX with dark mode, typography, responsiveness and UI polish`
 - `feat: add search by specific field (name, CNPJ, state, system)`
+- `feat: added skeleton, error.tsx, update error handling, change req for try/catch and update ui`
 
 ---
 
