@@ -23,8 +23,9 @@ export function CoopTable({ data }: CoopTableProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState<keyof Coop | "coopSystem" | null>(null);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc" | null>(null);
+  const [searchField, setSearchField] = useState<"name" | "CNPJ" | "state" | "coopSystem" | "" >("");
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const totalPages = Math.ceil(data.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
 
   const handleSort = (field: keyof Coop | "coopSystem") => {
@@ -38,9 +39,19 @@ export function CoopTable({ data }: CoopTableProps) {
       setSortOrder(null);
     }
 
-    // Voltar para página 1 ao ordenar
     setCurrentPage(1);
   };
+
+  const filteredData = data.filter((coop) => {
+  const valueToCheck =
+    searchField === "coopSystem"
+      ? coop.coopSystem.name
+      : String(coop[searchField as keyof Coop] ?? "");
+
+    return valueToCheck.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+
+  const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
 
   const getSortedData = (data: Coop[]) => {
     if (!sortBy || !sortOrder) return data;
@@ -62,7 +73,7 @@ export function CoopTable({ data }: CoopTableProps) {
     });
   };
 
-  const sortedData = getSortedData(data);
+  const sortedData = getSortedData(filteredData);
   const currentData = sortedData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   const SortIndicator = ({
@@ -78,6 +89,36 @@ export function CoopTable({ data }: CoopTableProps) {
 
   return (
     <div className="space-y-4 overflow-x-auto">
+
+      
+
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 mb-4">
+        <p className="text-sm font-bold text-gray-500">Buscar Específica: </p>
+        <select
+          value={searchField}
+          onChange={(e) => setSearchField(e.target.value as any)}
+          className="border rounded-md px-2 py-1 text-sm"
+        >
+          <option value="" disabled>Selecione um tipo</option>
+          <option value="name">Nome</option>
+          <option value="CNPJ">CNPJ</option>
+          <option value="state">Estado</option>
+          <option value="coopSystem">Sistema Cooperativo</option>
+        </select>
+
+        <input
+          type="text"
+          placeholder="Buscar..."
+          value={searchTerm}
+          disabled={!searchField}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+            setCurrentPage(1);
+          }}
+          className="border rounded-md px-2 py-1 text-sm w-full sm:w-64"
+        />
+      </div>
+
       <Table>
         <TableHeader>
           <TableRow className="bg-muted transition-colors">
@@ -109,14 +150,22 @@ export function CoopTable({ data }: CoopTableProps) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {currentData.map((coop) => (
-            <TableRow key={coop.id} className="hover:bg-muted transition-colors">
-              <TableCell className="font-medium">{coop.name}</TableCell>
-              <TableCell>{formatCNPJ(coop.CNPJ)}</TableCell>
-              <TableCell>{coop.state}</TableCell>
-              <TableCell>{coop.coopSystem.name}</TableCell>
+          {currentData.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={4} className="text-center text-muted-foreground py-6">
+                Nenhuma cooperativa encontrada para os critérios de busca.
+              </TableCell>
             </TableRow>
-          ))}
+          ) : (
+            currentData.map((coop) => (
+              <TableRow key={coop.id} className="hover:bg-muted transition-colors">
+                <TableCell className="font-medium">{coop.name}</TableCell>
+                <TableCell>{formatCNPJ(coop.CNPJ)}</TableCell>
+                <TableCell>{coop.state}</TableCell>
+                <TableCell>{coop.coopSystem.name}</TableCell>
+              </TableRow>
+            ))
+          )}
         </TableBody>
       </Table>
 
@@ -147,6 +196,7 @@ export function CoopTable({ data }: CoopTableProps) {
           </Button>
         </div>
       </div>
+
     </div>
   );
 }
