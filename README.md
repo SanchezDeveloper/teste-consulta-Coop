@@ -1,36 +1,132 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# 🧩 Cooperativas UI - Desafio Front-end
 
-First, run the development server:
+Aplicação desenvolvida como parte de um desafio técnico para a vaga de Desenvolvedor Front-end.  
+O objetivo foi listar e manipular dados de cooperativas utilizando tecnologias modernas como **Next.js 13+ (App Router)**, **TypeScript**, **Tailwind CSS** e **shadcn/ui**.
+
+---
+
+## 🚀 Tecnologias Utilizadas
+
+- [Next.js 13+](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [Vercel](https://vercel.com/) – para deploy
+
+---
+
+## 📦 Instalação e Execução Local
+
+### Pré-requisitos
+- Node.js `v18+`
+- npm ou yarn
+
+### Passos
 
 ```bash
+# Clone o repositório
+git clone https://github.com/SanchezDeveloper/teste-consulta-Coop.git
+
+# Acesse a pasta do projeto
+cd teste-consulta-Coop
+
+# Instale as dependências
+npm install
+
+# Inicie o servidor de desenvolvimento
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse `http://localhost:3000` no navegador.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✨ Funcionalidades Implementadas
 
-## Learn More
+- 📋 Exibição em tabela com dados da API
+- 🔃 Ordenação por colunas (nome, CNPJ, estado, sistema)
+- 🔎 Busca com filtro por campo (nome, CNPJ, estado, sistema)
+- 🧭 Paginação com 10 itens por página
+- ✅ Formatação de CNPJ (`XX.XXX.XXX/XXXX-XX`)
+- 🌓 Interface responsiva e estilizada com shadcn/ui
+- ⏳ Indicador de carregamento
+- ⚠️ Mensagem de erro da API
+- ❌ Mensagem de “nenhum resultado encontrado”
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🧠 Decisões Técnicas
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Uso de **Client Component (`CoopTableWrapper`)** para permitir estados reativos como loading, erro e busca.
+- Separação de responsabilidades entre:
+  - `CoopTable`: componente visual da tabela
+  - `CoopTableWrapper`: lógica de carregamento e exibição
+  - `lib/api`: fetcher da API
+  - `utils/formatCnpj`: máscara de CNPJ
+- Tipagem rigorosa com `TypeScript`, com uso de interfaces claras
+- Evitei bibliotecas externas adicionais, focando em manter o ambiente limpo e confiável
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🗂️ Estrutura do Projeto
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+├── app/
+│   └── page.tsx              # Página inicial com chamada do wrapper
+├── components/
+│   ├── tables/               # CoopTable + CoopTableWrapper
+│   ├── ui/                   # Componentes do shadcn/ui
+│   └── common/               # Loader, mensagens de erro etc.
+├── lib/
+│   └── api.ts                # Função para consumir a API
+├── types/
+│   └── coop.ts               # Tipagem da resposta da API
+├── utils/
+│   └── formatCnpj.ts         # Função de formatação de CNPJ
+```
+
+---
+
+## ✅ Commits principais
+
+- `Initial commit from Create Next App`
+- `initial commit and setting up developement environment`
+- `feat: implement coop table with pagination, sorting, loading and error states`
+- `feat: improve UX with dark mode, typography, responsiveness and UI polish`
+- `feat: add search by specific field (name, CNPJ, state, system)`
+
+---
+
+## 🚧 Melhorias Futuras
+
+- 🔢 Paginação com escolha direta da página (ex: 1, 2, 3)
+- ✅ Marcar qual coluna está ordenada com ícone visual
+- 💾 Cache com SWR ou React Query
+- 📄 Exportar lista (CSV ou PDF)
+- 🧪 Testes automatizados com React Testing Library
+- 🌐 I18n (internacionalização)
+- 🎨 Tema escuro / claro com switch
+
+---
+
+## 🔗 Deploy
+
+A aplicação está publicada na Vercel e disponível em:
+
+**em breve**
+
+---
+
+## 📬 Contato
+
+Desenvolvido por **Vinícius Caio - Web Developer**  
+- GitHub: [@sanchezdeveloper](https://github.com/sanchezdeveloper)  
+- Email: vinicsanchez@gmail.com  
+- LinkedIn: https://www.linkedin.com/in/vin%C3%ADcius-caio-marques-sanchez-a84786190/
+
+---
+
+**🛠️ Feito com foco em qualidade, clareza e responsabilidade.**  
+**Obrigado pela oportunidade!**
