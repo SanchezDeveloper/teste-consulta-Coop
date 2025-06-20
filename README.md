@@ -115,7 +115,7 @@ src/
 
 A aplicação está publicada na Vercel e disponível em:
 
-**em breve**
+**[link do site](https://teste-consulta-coop.vercel.app/)**
 
 ---
 
